@@ -1,19 +1,19 @@
-# Stock Analytics & Predictions — Codveda Data Analytics
+# Stock Analytics & Prediction Dashboard (Codveda Internship Project)
 
-Internship project: **data cleaning**, **EDA**, **regression**, and **classification** on historical stock OHLCV data, with an interactive **Streamlit** UI.
+Internship project demonstrating **data cleaning**, **exploratory data analysis (EDA)**, **regression**, and **classification** on historical stock OHLCV data using an interactive **Streamlit dashboard**.
 
 ---
 
-## Problem statement
+## Problem Statement
 
-Work with a real-world **stock prices** dataset that may contain **missing values**, **duplicate rows**, and **inconsistent formats**. Deliver:
+Work with a real-world **stock prices dataset** containing **missing values**, **duplicate rows**, and **inconsistent formats**.
 
-1. **Cleaning & preprocessing** before modeling.
-2. **Exploratory analysis** (summary stats, distributions, correlations, relationships).
-3. **Regression** to predict **close** from **open, high, low, volume**.
-4. **Classification** to predict whether **the next day’s close** is **higher** than **today’s close** (`Target` = 1 vs 0), using **logistic regression**.
+The project includes:
 
-This repo also includes **Jupyter notebooks** (`level1_basic.ipynb`, `level2_intermediate.ipynb`, `level3_advanced.ipynb`) aligned with Codveda task levels.
+1. Data cleaning and preprocessing  
+2. Exploratory Data Analysis (EDA)  
+3. Regression model to predict stock closing price  
+4. Classification model to predict next-day stock movement  
 
 ---
 
@@ -21,98 +21,70 @@ This repo also includes **Jupyter notebooks** (`level1_basic.ipynb`, `level2_int
 
 | Item | Detail |
 |------|--------|
-| **File** | `dataset/2) Stock Prices Data Set.csv` |
-| **Columns** | `symbol`, `date`, `open`, `high`, `low`, `close`, `volume` |
-| **Notes** | Panel data (many symbols × dates). The app lets you pick one **symbol** at a time for EDA and models. |
-
-Place the CSV at the path above relative to the project root.
+| File | `dataset/2) Stock Prices Data Set.csv` |
+| Columns | `symbol`, `date`, `open`, `high`, `low`, `close`, `volume` |
+| Notes | Dataset contains multiple stock symbols across time |
 
 ---
 
-## Steps (Cleaning → EDA → Model)
+## Tech Stack
 
-1. **Cleaning**
-   - Parse `date` to datetime; coerce OHLC and `volume` to numeric.
-   - **Remove duplicate** rows; **drop** rows still missing required fields after coercion.
-2. **EDA**
-   - `describe()` for summary statistics.
-   - **Histogram** (e.g. close), **correlation heatmap**, **open vs close** scatter (see **Data cleaning & EDA** tab in the app).
-3. **Regression**
-   - **Linear regression**: `close` ~ `open`, `high`, `low`, `volume` (with `StandardScaler`).
-   - Metrics: **R²**, **MSE** on a time-ordered holdout split.
-4. **Classification**
-   - `Target = (close.shift(-1) > close).astype(int)`.
-   - **Logistic regression** on scaled features; metrics: **accuracy**, **precision**, **recall**, **F1**; display **P(up)** for the latest row.
+- Python  
+- Pandas, NumPy  
+- Matplotlib, Seaborn  
+- Scikit-learn  
+- Streamlit  
 
 ---
 
-## How to run
+## Steps Performed
+
+### 1. Data Cleaning
+- Converted date column to datetime format  
+- Converted numeric columns (OHLCV)  
+- Removed duplicate rows  
+- Handled missing values  
+
+### 2. Exploratory Data Analysis (EDA)
+- Summary statistics using `describe()`  
+- Histogram of closing prices  
+- Scatter plot (Open vs Close)  
+- Correlation heatmap  
+
+### 3. Regression Model
+- Linear Regression to predict closing price  
+- Features: Open, High, Low, Volume  
+- Evaluation metrics:  
+  - R² Score  
+  - Mean Squared Error (MSE)  
+
+### 4. Classification Model
+- Logistic Regression to predict next-day movement  
+- Target:  
+  Target = (close.shift(-1) > close)  
+- Evaluation metrics:  
+  - Accuracy  
+  - Precision  
+  - Recall  
+  - F1 Score  
+
+---
+
+## Dashboard
+
+An interactive dashboard was built using **Streamlit**.
+
+Features:
+- Data visualization (histograms, scatter plots, heatmaps)  
+- Stock closing price prediction  
+- Next-day movement prediction  
+- User input for real-time predictions  
+
+---
+
+## How to Run
 
 ```bash
-cd /path/to/internship-project
+cd /path/to/project
 python -m pip install -r requirements.txt
 python -m streamlit run app.py
-```
-
-Open the URL shown in the terminal (usually `http://localhost:8501`).
-
-**Notebooks:**
-
-```bash
-jupyter notebook
-```
-
----
-
-## Screenshots (add your own)
-
-Replace or add images under `docs/screenshots/` and link them here for your report / GitHub / LinkedIn.
-
-| Screenshot | What to capture |
-|------------|-----------------|
-| `docs/screenshots/01_eda.png` | **Data cleaning & EDA** tab — histogram, scatter, heatmap |
-| `docs/screenshots/02_regression.png` | **Predict close** tab — model explanation + predicted value |
-| `docs/screenshots/03_classification.png` | **Predict next day ↑** tab — metrics + probability |
-
-If the folder does not exist yet, create it:
-
-```text
-docs/screenshots/
-```
-
-*(GitHub will display these images in the README once you commit the PNG files.)*
-
----
-
-## Results (fill in after you run)
-
-| Stage | Result |
-|-------|--------|
-| Cleaning | e.g. missing cells removed/dropped: ___; duplicates removed: ___ |
-| EDA | Key correlation (e.g. open–close): ___; distribution notes: ___ |
-| Regression | Example test **R²** / **MSE** for symbol `AAPL`: ___ / ___ |
-| Classification | Example test **accuracy** / **F1** for symbol `AAPL`: ___ / ___ |
-
-*Copy actual numbers from the Streamlit UI after training.*
-
----
-
-## Repository layout
-
-```text
-internship project/
-├── app.py                 # Streamlit UI
-├── requirements.txt
-├── dataset/
-│   └── 2) Stock Prices Data Set.csv
-├── level1_basic.ipynb
-├── level2_intermediate.ipynb
-├── level3_advanced.ipynb
-└── README.md
-```
-
----
-
-## Disclaimer
-
-Models are for **learning and internship demonstration** only, not financial or investment advice.
